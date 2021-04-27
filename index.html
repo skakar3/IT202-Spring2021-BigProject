@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SPA with MCW</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link href="https://unpkg.com/material-components-web@10.0.0/dist/material-components-web.min.css" rel="stylesheet">
+
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <style>
+
+    .screen {
+      display: none;
+    }
+    canvas {
+      height: 100vh;
+      width: 100vw;
+      position: absolute;
+      background-color: "white";
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: "white";
+      hieght: 100%;
+      overflow: hidden;
+
+    }
+
+    main {
+      /* margin-left: 10px; */
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="mdc-top-app-bar">
+      <div class="mdc-top-app-bar__row">
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+          <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button" aria-label="Open navigation menu">menu</button>
+        <span class="mdc-top-app-bar__title">Space Explorers</span>
+      </section>
+    </div>
+  </header>
+ 
+  <aside class="mdc-drawer mdc-drawer--modal">
+    <div class="mdc-drawer__header">
+      <br>
+      <img src="img/icons/icon.png" width="60" height="60"></img>
+        <h3 class="mdc-drawer__title">Space Explorers</h3>
+        <h6 class="mdc-drawer__subtitle">Explorer-202</h6>
+    </div>
+    <div class="mdc-drawer__content">
+      <nav class="mdc-list">
+
+        <!-- Home Screen -->
+        <a class="mdc-list-item mdc-list-item--activated" href="#HomeScreen" aria-current="page" tabindex="0" aria-selected="true">
+          <span class="mdc-list-item__ripple"></span>
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">home</i>
+          <span class="mdc-list-item__text">Home</span>
+        </a>
+
+        <!-- How To Use Screen -->
+        <a class="mdc-list-item" href="#HelpScreen" tabindex="-1" aria-selected="false">
+          <span class="mdc-list-item__ripple"></span>
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">help_outline</i>
+          <span class="mdc-list-item__text">Learn More</span>
+        </a>
+
+        <!-- Suit Up Screen -->
+        <a class="mdc-list-item" href="#SuitUpScreen" tabindex="-1" aria-selected="false">
+          <span class="mdc-list-item__ripple"></span>
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">photo_camera</i>
+          <span class="mdc-list-item__text">Suit Up</span>
+        </a>
+
+        <!-- Game Screen -->
+        <a class="mdc-list-item" href="#GameScreen" tabindex="-1" aria-selected="false">
+          <span class="mdc-list-item__ripple"></span>
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">sports_esports</i>
+          <span class="mdc-list-item__text">Start Game</span>
+        </a>
+
+        <!-- Game Stats Screen -->
+        <a class="mdc-list-item" href="#Screen4" tabindex="-1" aria-selected="false">
+          <span class="mdc-list-item__ripple"></span>
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">insert_chart_outlined</i>
+          <span class="mdc-list-item__text">Game Stats</span>
+        </a>
+
+        <!-- Image of the Day Screen -->
+        <a class="mdc-list-item" href="#NASAImgScreen" tabindex="-1" aria-selected="false">
+          <span class="mdc-list-item__ripple"></span>
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">image</i>
+          <span class="mdc-list-item__text">Image of the Day</span>
+        </a>
+
+        <!-- History Screen -->
+        <a class="mdc-list-item" href="#HistoryScreen" tabindex="-1" aria-selected="false">
+          <span class="mdc-list-item__ripple"></span>
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">history</i>
+          <span class="mdc-list-item__text">History</span>
+        </a>
+
+      </nav>
+    </div>
+  </aside>
+
+  <div class="mdc-drawer-scrim"></div>
+  <main class="mdc-top-app-bar--fixed-adjust">
+    
+    <!-- Home Screen -->
+    <div id="HomeScreen" class="screen">
+      <center>
+      <h5 class="mdc-typography--headline4">Home Screen</h5>
+      </center>
+   
+    </div> 
+    
+
+    <!-- Help Screen -->
+    <div id="HelpScreen" class="screen">
+      <center>
+      <h5 class="mdc-typography--headline4">App Info Screen</h5>
+      </center>
+    </div>
+    
+    <!-- game screen -->
+    <div id="GameScreen" class="screen">
+      <!-- <h5 class="mdc-typography--headline4">Screen 3</h5>
+      <canvas id="gameCanvas"></canvas> -->
+    </div>
+
+    <div id="Screen4" class="screen">
+      <h5 class="mdc-typography--headline4">Game Stats Screen</h5>
+    </div>
+
+    <div id="NASAImgScreen" class="screen">
+      <h5 class="mdc-typography--headline4">Image of the Day Screen</h5>
+    </div>
+
+    <div id="SuitUpScreen" class="screen">
+      <h5 class="mdc-typography--headline4">Suit Up Screen</h5>
+    </div>
+
+    <div id="HistoryScreen" class="screen">
+      <h5 class="mdc-typography--headline4">History Screen</h5>
+    </div>
+</main> 
+
+
+
+    
+    <!-- script for the game -->
+    <!-- <script src="game.js"></script> -->
+
+  </body>
+</html>
