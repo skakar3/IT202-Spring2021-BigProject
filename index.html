@@ -27,10 +27,17 @@
       margin: 0;
       padding: 0;
       background-color: "white";
+      /* hieght: 100%;
+      overflow: hidden; */
+    }
+
+    /* #GameScreen {
+      margin: 0;
+      padding: 0;
+      background-color: "white";
       hieght: 100%;
       overflow: hidden;
-
-    }
+    } */
 
     main {
       /* margin-left: 10px; */
@@ -73,6 +80,13 @@
           <span class="mdc-list-item__text">Learn More</span>
         </a>
 
+        <!-- Image of the Day Screen -->
+        <a class="mdc-list-item" href="#NASAImgScreen" tabindex="-1" aria-selected="false">
+          <span class="mdc-list-item__ripple"></span>
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">image</i>
+          <span class="mdc-list-item__text">Image of the Day</span>
+        </a>
+
         <!-- Suit Up Screen -->
         <a class="mdc-list-item" href="#SuitUpScreen" tabindex="-1" aria-selected="false">
           <span class="mdc-list-item__ripple"></span>
@@ -88,25 +102,18 @@
         </a>
 
         <!-- Game Stats Screen -->
-        <a class="mdc-list-item" href="#Screen4" tabindex="-1" aria-selected="false">
+        <!-- <a class="mdc-list-item" href="#Screen4" tabindex="-1" aria-selected="false">
           <span class="mdc-list-item__ripple"></span>
           <i class="material-icons mdc-list-item__graphic" aria-hidden="true">insert_chart_outlined</i>
           <span class="mdc-list-item__text">Game Stats</span>
-        </a>
-
-        <!-- Image of the Day Screen -->
-        <a class="mdc-list-item" href="#NASAImgScreen" tabindex="-1" aria-selected="false">
-          <span class="mdc-list-item__ripple"></span>
-          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">image</i>
-          <span class="mdc-list-item__text">Image of the Day</span>
-        </a>
+        </a> -->
 
         <!-- History Screen -->
-        <a class="mdc-list-item" href="#HistoryScreen" tabindex="-1" aria-selected="false">
+        <!-- <a class="mdc-list-item" href="#HistoryScreen" tabindex="-1" aria-selected="false">
           <span class="mdc-list-item__ripple"></span>
           <i class="material-icons mdc-list-item__graphic" aria-hidden="true">history</i>
           <span class="mdc-list-item__text">History</span>
-        </a>
+        </a> -->
 
       </nav>
     </div>
@@ -118,11 +125,76 @@
     <!-- Home Screen -->
     <div id="HomeScreen" class="screen">
       <center>
-      <h5 class="mdc-typography--headline4">Home Screen</h5>
+      <h5 class="mdc-typography--headline4">Welcome Explorer</h5>
+      
+      <!-- div to get the user info -->
+      <div id="getInfo">
+
+        <!-- Text Input with the label Enter your name  -->
+        <label class="mdc-text-field mdc-text-field--filled">
+          <span class="mdc-text-field__ripple"></span>
+          <span class="mdc-floating-label" id="my-label-id">Enter Your Name</span>
+          <input class="mdc-text-field__input" id="EnterName" type="text" aria-labelledby="my-label-id">
+          <span class="mdc-line-ripple"></span>
+        </label> <br> <br>
+        
+        
+        <!-- Button to store user data and invoke snackbar -->
+        <button class="mdc-button mdc-button--raised" id="JoinButton">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">Join the Force</span>
+        </button>
+
+        <!-- Snackbar -->
+        <div class="mdc-snackbar">
+          <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+            <div class="mdc-snackbar__label" aria-atomic="false">
+              Welcome Explorer
+            </div>
+            <div class="mdc-snackbar__actions" aria-atomic="true">
+              <button type="button" class="mdc-button mdc-snackbar__action">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      <!-- div that contains the introduction to the app and all the screens -->
+      <div id="intro">
+
+        <!-- app intro -->
+        <h5 class="mdc-typography--headline5">What does the app do?</h5>
+
+        <p class="mdc-typography--body1">The Application will allow you to join us in our quest to explore the known universe in search of a habitable planet. We hope that this planet will serve as our new home. This application tells you why we are in search of a new home and also how you can help us find it.</p>
+      
+        <!-- the search for a habitable planet -->
+        <h5 class="mdc-typography--headline5">The search for a habitable planet</h5>
+ 
+        <p class="mdc-typography--body1">The search for a habitable planet was initiated in response to the worsening environmental damage to planet Earth. Over the years, the human race has exploited the natural resources of this planet. This is causing irreversible damage to the planet we call home.</p>
+
+        <p class="mdc-typography--body1">Visit the info page to learn more about human impact on Earth's climate.</p>
+
+        <!-- learn more about space -->
+        <h5 class="mdc-typography--headline5">Learn more about space</h5>
+
+        <p class="mdc-typography--body1">You will be exploring the space in search of a habitable planet. It is essential that you learn more about space before you start exploring it. Well, lucky you!
+        
+        NASA uploads a new image or video about space. This will be a great source of information for you. Go to the More on Science page to get you Daily dose of Space.
+        </p>
+
+
+ 
+      </div>
+
       </center>
    
     </div> 
     
+    <!-- Home Screen Script -->
+
 
     <!-- Help Screen -->
     <div id="HelpScreen" class="screen">
@@ -133,8 +205,8 @@
     
     <!-- game screen -->
     <div id="GameScreen" class="screen">
-      <!-- <h5 class="mdc-typography--headline4">Screen 3</h5>
-      <canvas id="gameCanvas"></canvas> -->
+      <!-- <h5 class="mdc-typography--headline4">Screen 3</h5> -->
+      <canvas id="gameCanvas"></canvas>
     </div>
 
     <div id="Screen4" class="screen">
@@ -155,10 +227,9 @@
 </main> 
 
 
-
     
     <!-- script for the game -->
-    <!-- <script src="game.js"></script> -->
+    <!-- <script src="script/game.js"></script> -->
 
   </body>
 </html>
