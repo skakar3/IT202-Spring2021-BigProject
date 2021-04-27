@@ -31,6 +31,16 @@
       overflow: hidden; */
     }
 
+/* #getInfo {
+
+  background-image: url('https://scx1.b-cdn.net/csz/news/800/2017/theoreticala.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  color: #FFFFFF;
+
+  } */
+
     /* #GameScreen {
       margin: 0;
       padding: 0;
@@ -43,6 +53,11 @@
       /* margin-left: 10px; */
     }
   </style>
+
+  <script>
+      // control the game play and pause state as screens are changed
+      let pauseGame = false;
+  </script>
 </head>
 
 <body>
@@ -74,7 +89,7 @@
         </a>
 
         <!-- How To Use Screen -->
-        <a class="mdc-list-item" href="#HelpScreen" tabindex="-1" aria-selected="false">
+        <a class="mdc-list-item" href="#LearnMoreScreen" tabindex="-1" aria-selected="false">
           <span class="mdc-list-item__ripple"></span>
           <i class="material-icons mdc-list-item__graphic" aria-hidden="true">help_outline</i>
           <span class="mdc-list-item__text">Learn More</span>
@@ -125,10 +140,11 @@
     <!-- Home Screen -->
     <div id="HomeScreen" class="screen">
       <center>
-      <h5 class="mdc-typography--headline4">Welcome Explorer</h5>
       
       <!-- div to get the user info -->
       <div id="getInfo">
+        
+        <h5 class="mdc-typography--headline4">Welcome Explorer</h5>
 
         <!-- Text Input with the label Enter your name  -->
         <label class="mdc-text-field mdc-text-field--filled">
@@ -136,7 +152,8 @@
           <span class="mdc-floating-label" id="my-label-id">Enter Your Name</span>
           <input class="mdc-text-field__input" id="EnterName" type="text" aria-labelledby="my-label-id">
           <span class="mdc-line-ripple"></span>
-        </label> <br> <br>
+        </label> 
+        <br> <br>
         
         
         <!-- Button to store user data and invoke snackbar -->
@@ -169,6 +186,8 @@
         <h5 class="mdc-typography--headline5">What does the app do?</h5>
 
         <p class="mdc-typography--body1">The Application will allow you to join us in our quest to explore the known universe in search of a habitable planet. We hope that this planet will serve as our new home. This application tells you why we are in search of a new home and also how you can help us find it.</p>
+
+        <p class="mdc-typography--body1">Use the Navigation Drawer to navigate through the pages.</p>  
       
         <!-- the search for a habitable planet -->
         <h5 class="mdc-typography--headline5">The search for a habitable planet</h5>
@@ -176,6 +195,12 @@
         <p class="mdc-typography--body1">The search for a habitable planet was initiated in response to the worsening environmental damage to planet Earth. Over the years, the human race has exploited the natural resources of this planet. This is causing irreversible damage to the planet we call home.</p>
 
         <p class="mdc-typography--body1">Visit the info page to learn more about human impact on Earth's climate.</p>
+
+        <!-- Button to take user to climate info page -->
+        <button class="mdc-button mdc-button--raised" id="GoToInfo">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">Info</span>
+        </button>
 
         <!-- learn more about space -->
         <h5 class="mdc-typography--headline5">Learn more about space</h5>
@@ -185,6 +210,37 @@
         NASA uploads a new image or video about space. This will be a great source of information for you. Go to the More on Science page to get you Daily dose of Space.
         </p>
 
+        <!-- Button to take user to Space info page -->
+        <button class="mdc-button mdc-button--raised" id="GoToSpaceInfo">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">Daily Dose Of Space</span>
+        </button>        
+
+        <!-- Suit Up Screen -->
+        <h5 class="mdc-typography--headline5">Suit Up</h5>
+
+        <p class="mdc-typography--body1">You are now an explorer. Before you embark on your journey, you should suit up. Go to the Suit Up page to try on our latest space gear.
+        </p>        
+
+        <!-- Button to take user to climate Suit Up page -->
+        <button class="mdc-button mdc-button--raised" id="GoToSuitUp">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">Suit Up</span>
+        </button>
+
+        <!-- Start Game screen -->
+        <h5 class="mdc-typography--headline5">Start Exploring</h5>
+
+        <p class="mdc-typography--body1">You are now ready. Go to the Start Exploring page to start your jourey. 
+        </p>
+
+        <!-- Button to take user to Start Game page -->
+        <button class="mdc-button mdc-button--raised" id="GoToStartGame">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">Explore</span>
+        </button>
+
+        <br><br><br>
 
  
       </div>
@@ -193,11 +249,10 @@
    
     </div> 
     
-    <!-- Home Screen Script -->
-
+    
 
     <!-- Help Screen -->
-    <div id="HelpScreen" class="screen">
+    <div id="LearnMoreScreen" class="screen">
       <center>
       <h5 class="mdc-typography--headline4">App Info Screen</h5>
       </center>
@@ -227,6 +282,66 @@
 </main> 
 
 
+	  <!-- script to support a SPA   -->
+    <script>
+      // // control the game play and pause state as screens are changed
+      // let pauseGame = false;
+
+      // define the drawer
+      const drawer = mdc.drawer.MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
+
+      // define topApp bar
+      const topAppBarElement = document.querySelector('.mdc-top-app-bar');
+
+      // navigation drawer
+      const listEl = document.querySelector('.mdc-drawer .mdc-list');
+      const mainContentEl = document.querySelector('main');
+  
+      listEl.addEventListener('click', (event) => {
+        drawer.open = false;
+      });
+
+      document.querySelector("header button.mdc-top-app-bar__navigation-icon").addEventListener("click", (event) => {
+        drawer.open = true;
+      });
+      
+      // close the navbar when the user clicks anywhere
+      window.addEventListener('click', () => {
+        drawer.open = false;
+        // console.log("closed nav bar");
+      });
+
+      document.body.addEventListener('MDCDrawer:closed', () => {
+        // mainContentEl.querySelector('input, button').focus();
+      });
+
+
+    document.querySelectorAll('.mdc-list-item').forEach((element) => {
+      element.addEventListener('click', (event) => {
+        hideAllScreens();
+        let href = event.target.getAttribute("href");
+        console.log(href);
+        console.log(event);
+        
+       document.querySelector(href).style.display="block";
+      });
+    });
+    
+    let hideAllScreens = () =>{
+      document.querySelectorAll(".screen").forEach((element) => {
+        element.style.display="none";
+      });
+    }
+
+
+
+    </script>
+
+    <script>
+      window.addEventListener('load', (event) => {
+        document.querySelector("#HomeScreen").style.display="block";
+      });
+    </script>
     
     <!-- script for the game -->
     <!-- <script src="script/game.js"></script> -->
