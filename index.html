@@ -249,7 +249,66 @@
    
     </div> 
     
+    <!-- Home Screen Script -->
+    <!-- Include Dexie -->
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+    <script>
+      let userName;
+
+      // Add script to initialize the components
+      let textInput = mdc.textField.MDCTextField.attachTo(document.querySelector('.mdc-text-field'));
+
+      let button = mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-button--raised'));
     
+      let snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector(".mdc-snackbar"));
+
+      var db = new Dexie("players_db");
+      db.version(1).stores({
+          players: 'userName'
+      });
+
+      // click event handler for the button, the snackbar text is set and the snackbar is shown.
+      document.querySelector("#JoinButton").addEventListener("click", (event) => {
+        // get user input from input element
+        let userInput = textInput.value;
+        
+        let score = 0;
+        console.log("prev Score : " + score);
+        db.players.get(userName)
+        .then( (item) => {
+          console.log(typeof(item.highestScore));
+          console.log(typeof(0));
+          console.log(typeof(item.highestScore) == typeof(0));
+          if (typeof(item.highestScore) == typeof(0)) {
+            console.log("score : " + item.highestScore);
+            score = item.highestScore;
+            console.log("updated score : " + score);
+          }
+        });
+        
+        console.log("post Score : " + score);
+        // add the userName to the database of players
+        db.players.put({userName: userInput, highestScore: score, date: new Date()})
+        .then ( (item) => {
+
+          // store the user's name
+          userName = userInput;
+
+          // update and open the snackbar
+          snackbar.labelText = "Welcome Explorer " + userInput;
+          snackbar.open();
+
+        });
+
+      });
+      
+      // buttons in the main screen to change screens
+      let b1 = mdc.ripple.MDCRipple.attachTo(document.querySelector('#GoToInfo'));
+      let b2 = mdc.ripple.MDCRipple.attachTo(document.querySelector('#GoToSpaceInfo'));
+      let b3 = mdc.ripple.MDCRipple.attachTo(document.querySelector('#GoToSuitUp'));
+      let b4 = mdc.ripple.MDCRipple.attachTo(document.querySelector('#GoToStartGame'));
+
+    </script>
 
     <!-- Help Screen -->
     <div id="LearnMoreScreen" class="screen">
@@ -315,6 +374,23 @@
         // mainContentEl.querySelector('input, button').focus();
       });
 
+      // set the screen
+      let setScreen = (href) => {
+        hideAllScreens();
+        console.log(href);
+        console.log(event);
+        
+        // check if the current screen is the game screen or not
+        if (href != "#GameScreen") {
+          pauseGame = true;
+
+        } else if (href == "#GameScreen") {
+          pauseGame = false;
+
+        }
+
+        document.querySelector(href).style.display="block";
+      }
 
     document.querySelectorAll('.mdc-list-item').forEach((element) => {
       element.addEventListener('click', (event) => {
@@ -323,7 +399,18 @@
         console.log(href);
         console.log(event);
         
-       document.querySelector(href).style.display="block";
+        // check if the current screen is the game screen or not
+        if (href != "#GameScreen") {
+          pauseGame = true;
+
+
+        } else if (href == "#GameScreen") {
+          pauseGame = false;
+
+
+        }
+
+        document.querySelector(href).style.display="block";
       });
     });
     
@@ -333,7 +420,22 @@
       });
     }
 
-
+    // event handlers for the buttons to change screens
+    document.querySelector("#GoToInfo").addEventListener("click", (event) => {
+      setScreen("#LearnMoreScreen");
+    });
+    
+    document.querySelector("#GoToSpaceInfo").addEventListener("click", (event) => {
+      setScreen("#NASAImgScreen");
+    });
+    
+    document.querySelector("#GoToSuitUp").addEventListener("click", (event) => {
+      setScreen("#SuitUpScreen");
+    });
+    
+    document.querySelector("#GoToStartGame").addEventListener("click", (event) => {
+      setScreen("#GameScreen");
+    });
 
     </script>
 
