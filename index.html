@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SPA with MCW</title>
+  <title>IT202-Spring2021-BigProject</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -242,7 +242,6 @@
 
         <br><br><br>
 
- 
       </div>
 
       </center>
@@ -309,12 +308,19 @@
       let b4 = mdc.ripple.MDCRipple.attachTo(document.querySelector('#GoToStartGame'));
 
     </script>
+    
+
+    <!-- Script for the Info Screen -->
 
     <!-- Help Screen -->
     <div id="LearnMoreScreen" class="screen">
       <center>
-      <h5 class="mdc-typography--headline4">App Info Screen</h5>
+        <div id="infoContent">
+          <h5 class="mdc-typography--headline4">App Info Screen</h5>
+        </div>
+
       </center>
+
     </div>
     
     <!-- game screen -->
@@ -384,9 +390,16 @@
         if (href != "#GameScreen") {
           pauseGame = true;
 
+          // adjust the properties of the body to allow the scroll bar
+          // document.querySelector("body").removeAttribute("hieght");
+          document.querySelector("body").style.overflow = "scroll";
+
         } else if (href == "#GameScreen") {
           pauseGame = false;
 
+          // adjust the properties of the body to prevent the scroll bar
+          document.querySelector("body").style.height = "100%";
+          document.querySelector("body").style.overflow = "hidden";
         }
 
         document.querySelector(href).style.display="block";
@@ -403,11 +416,16 @@
         if (href != "#GameScreen") {
           pauseGame = true;
 
+          // adjust the properties of the body to allow the scroll bar
+          // document.querySelector("body").removeAttribute("hieght");
+          document.querySelector("body").style.overflow = "scroll";
 
         } else if (href == "#GameScreen") {
           pauseGame = false;
 
-
+          // adjust the properties of the body to prevent the scroll bar
+          document.querySelector("body").style.height = "100%";
+          document.querySelector("body").style.overflow = "hidden";
         }
 
         document.querySelector(href).style.display="block";
@@ -445,8 +463,8 @@
       });
     </script>
     
-    <!-- script for the game -->
-    <!-- <script src="script/game.js"></script> -->
+<!--     script for the game -->
+    <script src="script/game.js"></script>
 
   </body>
 </html>
