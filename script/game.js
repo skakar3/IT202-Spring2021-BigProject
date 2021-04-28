@@ -39,7 +39,7 @@ let requestAnimationFrame = window.requestAnimationFrame ||
                             window.msRequestAnimationFrame;
 
 // set the canvas and context objects
-let canvas = document.querySelector("canvas");
+let canvas = document.querySelector("#gameCanvas");
 let context = canvas.getContext("2d");
 
 // function to draw the game data
