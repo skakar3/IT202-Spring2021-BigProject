@@ -443,6 +443,38 @@
 
     </div>
     
+    <!-- Image of the Day Screen -->
+    <div id="NASAImgScreen" class="screen">
+      <center>
+      <div id="NASAScreenBody">
+      <h5 class="mdc-typography--headline3">Daily Dose of Space</h5>
+      <h5 class="mdc-typography--headline4" id="Screen1H1"></h5>
+      
+      </center>
+
+    </div>
+
+    <!-- Script for Image of the Day Screen -->
+    <script>
+
+      // fetch data from the Pic of the day API
+      fetch ("https://api.nasa.gov/planetary/apod?api_key=jfmJBQV0xTVlEOMAhKwtVWeJjRVCmtVVxIivIEsk")
+      
+      .then ( (response)=> {
+        return response.json()
+      })
+
+      .then ( (response) => {
+        // create an h1 element
+        let h1 = document.querySelector("#Screen1H1")
+        h1.innerText = response.title;
+        
+
+      });
+    </script>
+
+
+
     <!-- game screen -->
     <div id="GameScreen" class="screen">
       <!-- <h5 class="mdc-typography--headline4">Screen 3</h5> -->
@@ -451,10 +483,6 @@
 
     <div id="Screen4" class="screen">
       <h5 class="mdc-typography--headline4">Game Stats Screen</h5>
-    </div>
-
-    <div id="NASAImgScreen" class="screen">
-      <h5 class="mdc-typography--headline4">Image of the Day Screen</h5>
     </div>
 
     <div id="SuitUpScreen" class="screen">
@@ -469,7 +497,7 @@
 
 	  <!-- script to support a SPA   -->
     <script>
-      // // control the game play and pause state as screens are changed
+      // control the game play and pause state as screens are changed
       // let pauseGame = false;
 
       // define the drawer
