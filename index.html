@@ -17,7 +17,7 @@
     .screen {
       display: none;
     }
-    canvas {
+    #gameCanvas {
       height: 100vh;
       width: 100vw;
       position: absolute;
@@ -29,6 +29,15 @@
       background-color: "white";
       /* hieght: 100%;
       overflow: hidden; */
+    }
+
+    .image-option {
+      border: solid 5px silver;
+      width: 100px;
+    }
+
+    .image-option-active {
+      border-color: blue;
     }
 
 /* #getInfo {
@@ -207,7 +216,7 @@
 
         <p class="mdc-typography--body1">You will be exploring the space in search of a habitable planet. It is essential that you learn more about space before you start exploring it. Well, lucky you!
         
-        NASA uploads a new image or video about space. This will be a great source of information for you. Go to the More on Science page to get you Daily dose of Space.
+        NASA uploads a new image or video about space. This will be a great source of information for you. Go to the More on Science page to get your Daily Dose of Space.
         </p>
 
         <!-- Button to take user to Space info page -->
@@ -312,112 +321,7 @@
 
     <!-- Script for the Info Screen -->
     <!--Load the AJAX API-->
-    <!-- <script src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="script/infoScreen.js"></script> -->
-
-
-    <!--Load the AJAX API-->
-    <script src="https://www.gstatic.com/charts/loader.js"></script>
-    <script>
-
-      // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
-
-      // fetch form the CO2 APi and draw the chart
-      let co2Chart = () => {
-        let lineChart = new google.visualization.DataTable();
-        
-        lineChart.addColumn('string','date');
-        lineChart.addColumn('number','Carbon Dioxide Levels');
-        
-        fetch("https://global-warming.org/api/co2-api")
-        .then( (response) => {
-          return response.json()
-        })
-        .then( (json) => {
-          json.co2.forEach( (elem) => {
-            lineChart.addRow([elem.year +"/"+ elem.month +"/"+ elem.day, parseInt(elem.trend)]);
-          });
-        
-        // Set chart options
-        let options = {'title':'co2 levels',
-        'width':1500,
-        'height':500};
-        
-        // Instantiate and draw our chart, passing in some options.
-        let chart = new google.visualization.LineChart(document.querySelector('#co2_line_chart_div'));
-        chart.draw(lineChart, options);
-        })
-      }      
-      
-      // fetch from methane API and draw chart
-      let methaneChart = () => {
-        let lineChart = new google.visualization.DataTable();
-        
-        lineChart.addColumn('string','date');
-        lineChart.addColumn('number','average');
-
-        fetch("https://global-warming.org/api/methane-api")
-        .then( (response) => {
-          return response.json()
-        })
-        .then( (json) => {
-          json.methane.forEach( (elem) => {
-            lineChart.addRow([elem.date, parseInt(elem.average)])  });
-        
-        // Set chart options
-        let options = {'title':'Methane levels from 1983 to 2020 (for each month)',
-        'width':1500,
-        'height':500};
-        
-        // Instantiate and draw our chart, passing in some options.
-        let chart = new google.visualization.LineChart(document.querySelector('#methane_line_chart_div'));
-        chart.draw(lineChart, options);
-        })
-      }
-      
-      // fetch from N2O chart and draw chart
-      let n2oChart = () => {
-        let lineChart = new google.visualization.DataTable();
-        
-        lineChart.addColumn('string','date');
-        lineChart.addColumn('number','average');
-
-        fetch("https://global-warming.org/api/nitrous-oxide-api")
-        .then( (response) => {
-          return response.json()
-        })
-        .then( (json) => {
-          json.nitrous.forEach( (elem) => {
-            lineChart.addRow([elem.date, parseInt(elem.average)])  });
-        
-        // Set chart options
-        let options = {'title':'Nitrous Oxide levels from 2001 to present',
-        'width':1500,
-        'height':500};
-
-        // Instantiate and draw our chart, passing in some options.
-        let chart = new google.visualization.LineChart(document.querySelector('#n2o_line_chart_div'));
-        chart.draw(lineChart, options);
-        })
-      }
-
-
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      let drawCharts = () => {
-   
-        // draw the charts
-        methaneChart();
-        co2Chart();
-        n2oChart();
-      }
-
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawCharts);
-
-    </script>
+    <!-- <script 
 
     <!-- Help Screen -->
     <div id="LearnMoreScreen" class="screen">
@@ -465,14 +369,78 @@
       })
 
       .then ( (response) => {
-        // create an h1 element
+
+        // modify the title
         let h1 = document.querySelector("#Screen1H1")
         h1.innerText = response.title;
         
+        // get the media_type of the data
+        let mediaType = response.media_type;
+        console.log("media_type : " + mediaType);
+        
+        // check if the media is a video or an image
+        if (mediaType == "video") {
+          // create a video element
+          let vid = document.createElement("iframe");
+          vid.id = "Screen1Video";
+          // let vid = document.querySelector("#Screen1Video");
+
+          let vidSrc = response.url;
+          vid.setAttribute("src", vidSrc);
+          vid.setAttribute("width", "650");
+          vid.setAttribute("height", "450");
+          vid.setAttribute("controls", "controls");
+
+          document.querySelector("#NASAScreenBody").appendChild(vid);
+
+        } else if (mediaType == "image") {
+
+          // create an image element
+          let img = document.createElement("img");
+          img.id = "Screen1Img";
+          // get smaller image
+          let imgSrc = response.url; 
+          img.setAttribute("src", imgSrc);
+          img.setAttribute("width", 500);
+
+          document.querySelector("#NASAScreenBody").appendChild(img);
+        }
+
+        // create a p element
+        let p = document.createElement("p");
+        p.id = "Screen1P";
+        p.classList.add("mdc-typography--body1");
+        p.innerText = response.explanation;
+        document.querySelector("#NASAScreenBody").appendChild(p);
 
       });
     </script>
+    
+    <!-- Suit Up Screen -->
+    <div id="SuitUpScreen" class="screen">
 
+      <center>
+
+        <h5 class="mdc-typography--headline4">Suit Up Screen</h5>
+
+        <video id="vidPlayer" width="320" height="240" controls autoplay></video>
+        <canvas id="userCanvas" width="320" height="240"></canvas>
+        
+        <br><br>
+        <button class="mdc-button mdc-button--raised" id="capture">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">Suit Up</span>
+        </button>
+        <br><br>
+
+        <div id="imageOptions">
+          <h2 class="mdc-typography--headline5">Choose your Helmet</h2>
+        </div>
+      
+      </center>
+    
+    </div>
+    
 
 
     <!-- game screen -->
@@ -483,10 +451,6 @@
 
     <div id="Screen4" class="screen">
       <h5 class="mdc-typography--headline4">Game Stats Screen</h5>
-    </div>
-
-    <div id="SuitUpScreen" class="screen">
-      <h5 class="mdc-typography--headline4">Suit Up Screen</h5>
     </div>
 
     <div id="HistoryScreen" class="screen">
