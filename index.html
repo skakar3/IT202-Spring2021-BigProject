@@ -208,7 +208,7 @@
         <!-- Button to take user to climate info page -->
         <button class="mdc-button mdc-button--raised" id="GoToInfo">
           <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">Info</span>
+          <span class="mdc-button__label">Learn More</span>
         </button>
 
         <!-- learn more about space -->
@@ -240,8 +240,7 @@
         <!-- Start Game screen -->
         <h5 class="mdc-typography--headline5">Start Exploring</h5>
 
-        <p class="mdc-typography--body1">You are now ready. Go to the Start Exploring page to start your jourey. 
-        </p>
+        <p class="mdc-typography--body1">You are now ready. Go to the Start Exploring page to start your jourey.</p>
 
         <!-- Button to take user to Start Game page -->
         <button class="mdc-button mdc-button--raised" id="GoToStartGame">
@@ -320,10 +319,6 @@
     
 
     <!-- Script for the Info Screen -->
-    <!--Load the AJAX API-->
-    <!-- <script src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="script/infoScreen.js"></script> -->
-
 
     <!--Load the AJAX API-->
     <script src="https://www.gstatic.com/charts/loader.js"></script>
@@ -332,39 +327,13 @@
       // Load the Visualization API and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
 
-      // fetch form the CO2 APi and draw the chart
-      let co2Chart = () => {
-        let lineChart = new google.visualization.DataTable();
-        
-        lineChart.addColumn('string','date');
-        lineChart.addColumn('number','Carbon Dioxide Levels');
-        
-        fetch("https://global-warming.org/api/co2-api")
-        .then( (response) => {
-          return response.json()
-        })
-        .then( (json) => {
-          json.co2.forEach( (elem) => {
-            lineChart.addRow([elem.year +"/"+ elem.month +"/"+ elem.day, parseInt(elem.trend)]);
-          });
-        
-        // Set chart options
-        let options = {'title':'co2 levels',
-        'width':1500,
-        'height':500};
-        
-        // Instantiate and draw our chart, passing in some options.
-        let chart = new google.visualization.LineChart(document.querySelector('#co2_line_chart_div'));
-        chart.draw(lineChart, options);
-        })
-      }      
       
       // fetch from methane API and draw chart
       let methaneChart = () => {
         let lineChart = new google.visualization.DataTable();
         
         lineChart.addColumn('string','date');
-        lineChart.addColumn('number','average');
+        lineChart.addColumn('number','Average (PPM)');
 
         fetch("https://global-warming.org/api/methane-api")
         .then( (response) => {
@@ -372,10 +341,10 @@
         })
         .then( (json) => {
           json.methane.forEach( (elem) => {
-            lineChart.addRow([elem.date, parseInt(elem.average)])  });
+            lineChart.addRow(["Date : " + elem.date, parseInt(elem.average)])  });
         
         // Set chart options
-        let options = {'title':'Methane levels from 1983 to 2020 (for each month)',
+        let options = {'title':"Line chart showing the Methane levels in the Earth's atmosphere in Parts Per Million (PPM) for each month from 1983 to present",
         'width':1500,
         'height':500};
         
@@ -386,41 +355,16 @@
       }
       
       // fetch from N2O chart and draw chart
-      let n2oChart = () => {
-        let lineChart = new google.visualization.DataTable();
-        
-        lineChart.addColumn('string','date');
-        lineChart.addColumn('number','average');
-
-        fetch("https://global-warming.org/api/nitrous-oxide-api")
-        .then( (response) => {
-          return response.json()
-        })
-        .then( (json) => {
-          json.nitrous.forEach( (elem) => {
-            lineChart.addRow([elem.date, parseInt(elem.average)])  });
-        
-        // Set chart options
-        let options = {'title':'Nitrous Oxide levels from 2001 to present',
-        'width':1500,
-        'height':500};
-
-        // Instantiate and draw our chart, passing in some options.
-        let chart = new google.visualization.LineChart(document.querySelector('#n2o_line_chart_div'));
-        chart.draw(lineChart, options);
-        })
-      }
-
 
       // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
+      // instantiates the chart, passes in the data and
       // draws it.
       let drawCharts = () => {
    
         // draw the charts
         methaneChart();
-        co2Chart();
-        n2oChart();
+//         co2Chart();
+//         n2oChart();
       }
 
       // Set a callback to run when the Google Visualization API is loaded.
@@ -436,12 +380,22 @@
 
         <!-- div to store all the charts -->
         <div id="Charts">
-
-          <!--Div to hold line chart of methane-->
-          <div id="methane_line_chart_div"></div>
+          
+          <!-- CO2 -->
+          
 
           <!--Div to hold line chart of CO2-->
-          <div id="co2_line_chart_div"></div>     
+          <div id="co2_line_chart_div"></div>
+
+
+          <!-- Methane -->
+       
+          
+
+          <!--Div to hold line chart of methane-->
+          <div id="methane_line_chart_div"></div>    
+
+          <!-- Nitrous Oxide -->
 
           <!--Div to hold line chart of N2O-->
           <div id="n2o_line_chart_div"></div>
@@ -564,6 +518,20 @@
           "eye_distance": 130,
             "offset_horizontal": 178,
             "offset_vertical": 310
+          },
+          {
+          "file": "masks/Helmet3.png",
+          "type": "mask",
+          "eye_distance": 110,
+            "offset_horizontal": 250,
+            "offset_vertical": 345
+          },
+          {
+          "file": "masks/Helmet4.png",
+          "type": "mask",
+          "eye_distance": 150,
+            "offset_horizontal": 350,
+            "offset_vertical": 520
           }
       ];
 
