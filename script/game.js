@@ -61,6 +61,11 @@ const instBG = new Image();
 instBG.src = 'gameAssets/instructionsBG.jpg';
 instBG.position = { x: 0, y: 0};
 
+// add background image for choose ship screen
+const chooseShipBG = new Image();
+chooseShipBG.src = 'gameAssets/chooseShipBG.jpg';
+chooseShipBG.position = { x: 0, y: 0};
+
 // add background image
 const backgroundImage = new Image();
 backgroundImage.src = 'gameAssets/bg.jpg';
@@ -485,51 +490,51 @@ let drawInstructionsWindow = () => {
   context.clearRect(0, 0, canvas.width, canvas.height);
   context.drawImage(instBG, instBG.position.x, instBG.position.y, canvas.width, canvas.height);
 
-  // add heading
-  context.font = "bold 90px Helvetica, Arial, sans-serif";
-  context.fillStyle = "white";
-  context.fillText("Welcome Explorer-202,", 150, 190);
+  // // add heading
+  // context.font = "bold 90px Helvetica, Arial, sans-serif";
+  // context.fillStyle = "white";
+  // context.fillText("Welcome Explorer-202,", 150, 190);
 
-  context.font = "bold 40px Helvetica, Arial, sans-serif";
-  let x = 150;
-  let y = 300;
+  // context.font = "bold 40px Helvetica, Arial, sans-serif";
+  // let x = 150;
+  // let y = 300;
 
-  // add the instructions
-  context.fillText("It's your turn to lead us in the search for planet Nebulus.", x, y); 
-  context.fillText("You will be travelling through a path filled with obstacles metors and asteroids.", x, y + 50); 
-  context.fillText("  Avoid the obstacles and collect the valuable coins.", x, y + 150);
-  context.fillText("  Your ship has a protective shield. (White ring - SAFE | Red ring - DANGER)", x, y + 200); 
-  context.fillText("  Medical kits grant you extra life.", x, y + 250);
-  context.fillText("  Press UP arrow or W to go up and press DOWN arrow or S to go down.", x, y + 300);
-  context.fillText("This is your mission, should you choose to accept it.", x, y + 400);
-  context.fillText("Press c to continue...", x, y + 480);
+  // // add the instructions
+  // context.fillText("It's your turn to lead us in the search for planet Nebulus.", x, y); 
+  // context.fillText("You will be travelling through a path filled with obstacles metors and asteroids.", x, y + 50); 
+  // context.fillText("  Avoid the obstacles and collect the valuable coins.", x, y + 150);
+  // context.fillText("  Your ship has a protective shield. (White ring - SAFE | Red ring - DANGER)", x, y + 200); 
+  // context.fillText("  Medical kits grant you extra life.", x, y + 250);
+  // context.fillText("  Press UP arrow or W to go up and press DOWN arrow or S to go down.", x, y + 300);
+  // context.fillText("This is your mission, should you choose to accept it.", x, y + 400);
+  // context.fillText("Press c to continue...", x, y + 480);
 }
 
 // function to draw the screen that allows the user to choose the space ships
 let drawChooseShipWindow = () => {
   context.clearRect(0, 0, canvas.width, canvas.height);
 
-  context.drawImage(instBG, instBG.position.x, instBG.position.y, canvas.width, canvas.height);
+  context.drawImage(chooseShipBG, instBG.position.x, instBG.position.y, canvas.width, canvas.height);
   
-  // add heading
-  context.font = "bold 70px Helvetica, Arial, sans-serif";
-  context.fillStyle = "white";
-  context.fillText("Choose your ship", 140, 150);
+  // // add heading
+  // context.font = "bold 70px Helvetica, Arial, sans-serif";
+  // context.fillStyle = "white";
+  // context.fillText("Choose your ship", 140, 150);
 
-  // add images of ships that the user can choose from
-  let shipImg = new Image();
-  shipImg.src = 'gameAssets/ship1.png';
-  shipImg.position = { x: 300, y: canvas.height/2 - 260};
-  context.drawImage(shipImg, shipImg.position.x, shipImg.position.y, 500, 500);
-  context.font = "bold 30px Helvetica, Arial, sans-serif";
-  context.fillText("Press 1 to choose Ship-1 and 2 to choose Ship-2", 140, 200);
-  context.fillText("Press 1", 500, 750);
+  // // add images of ships that the user can choose from
+  // let shipImg = new Image();
+  // shipImg.src = 'gameAssets/ship1.png';
+  // shipImg.position = { x: 300, y: canvas.height/2 - 260};
+  // context.drawImage(shipImg, shipImg.position.x, shipImg.position.y, 500, 500);
+  // context.font = "bold 30px Helvetica, Arial, sans-serif";
+  // context.fillText("Press 1 to choose Ship-1 and 2 to choose Ship-2", 140, 200);
+  // context.fillText("Press 1", 500, 750);
 
-  let shipImg2 = new Image();
-  shipImg2.src = 'gameAssets/ship2.png';
-  shipImg2.position = { x: 1100, y: canvas.height/2 - 230};
-  context.drawImage(shipImg2, shipImg2.position.x, shipImg2.position.y, 500, 500);
-  context.fillText("Press 2", 1200, 750);
+  // let shipImg2 = new Image();
+  // shipImg2.src = 'gameAssets/ship2.png';
+  // shipImg2.position = { x: 1100, y: canvas.height/2 - 230};
+  // context.drawImage(shipImg2, shipImg2.position.x, shipImg2.position.y, 500, 500);
+  // context.fillText("Press 2", 1200, 750);
 }
 
 
