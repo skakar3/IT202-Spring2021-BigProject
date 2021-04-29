@@ -126,11 +126,11 @@
         </a>
 
         <!-- Game Stats Screen -->
-        <!-- <a class="mdc-list-item" href="#Screen4" tabindex="-1" aria-selected="false">
+        <a class="mdc-list-item" href="#GameStats" tabindex="-1" aria-selected="false">
           <span class="mdc-list-item__ripple"></span>
           <i class="material-icons mdc-list-item__graphic" aria-hidden="true">insert_chart_outlined</i>
           <span class="mdc-list-item__text">Game Stats</span>
-        </a> -->
+        </a>
 
         <!-- History Screen -->
         <!-- <a class="mdc-list-item" href="#HistoryScreen" tabindex="-1" aria-selected="false">
@@ -248,6 +248,17 @@
           <span class="mdc-button__label">Explore</span>
         </button>
 
+        <!-- Exploration Statistics Screen -->
+        <h5 class="mdc-typography--headline5">Exploration Statistics</h5>
+
+        <p class="mdc-typography--body1">Have you already played the game? Then visit the exploration statistics page to view the score for recent game and your highest score.</p>
+
+        <!-- Button to take user to Exploration Statistics page -->
+        <button class="mdc-button mdc-button--raised" id="GoToExpStat">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">Exploration Statistics</span>
+        </button>
+
         <br><br><br>
 
       </div>
@@ -279,27 +290,12 @@
         // get user input from input element
         let userInput = textInput.value;
         
-        let score = 0;
-        console.log("prev Score : " + score);
-        db.players.get(userName)
-        .then( (item) => {
-          console.log(typeof(item.highestScore));
-          console.log(typeof(0));
-          console.log(typeof(item.highestScore) == typeof(0));
-          if (typeof(item.highestScore) == typeof(0)) {
-            console.log("score : " + item.highestScore);
-            score = item.highestScore;
-            console.log("updated score : " + score);
-          }
-        });
-        
-        console.log("post Score : " + score);
+        // store the user's name
+        userName = userInput;
+      
         // add the userName to the database of players
-        db.players.put({userName: userInput, highestScore: score, date: new Date()})
+        db.players.put({userName: userInput, highestScore: 0, date: new Date()})
         .then ( (item) => {
-
-          // store the user's name
-          userName = userInput;
 
           // update and open the snackbar
           snackbar.labelText = "Welcome Explorer " + userInput;
@@ -314,7 +310,7 @@
       let b2 = mdc.ripple.MDCRipple.attachTo(document.querySelector('#GoToSpaceInfo'));
       let b3 = mdc.ripple.MDCRipple.attachTo(document.querySelector('#GoToSuitUp'));
       let b4 = mdc.ripple.MDCRipple.attachTo(document.querySelector('#GoToStartGame'));
-
+      let b5 = mdc.ripple.MDCRipple.attachTo(document.querySelector('#GoToExpStat'));
     </script>
     
 
@@ -327,6 +323,32 @@
       // Load the Visualization API and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
 
+      // fetch form the CO2 APi and draw the chart
+      let co2Chart = () => {
+        let lineChart = new google.visualization.DataTable();
+        
+        lineChart.addColumn('string','date');
+        lineChart.addColumn('number','CO2 Levels (PPM)');
+        
+        fetch("https://global-warming.org/api/co2-api")
+        .then( (response) => {
+          return response.json()
+        })
+        .then( (json) => {
+          json.co2.forEach( (elem) => {
+            lineChart.addRow(["Date : " + elem.year +"/"+ elem.month +"/"+ elem.day, parseInt(elem.trend)]);
+          });
+        
+        // Set chart options
+        let options = {'title':"Line chart showing the Carbon dioxide levels in the Earth's atmosphere in Parts Per Million (PPM) for each day from 2011 to present",
+        'width':1500,
+        'height':500};
+        
+        // Instantiate and draw our chart, passing in some options.
+        let chart = new google.visualization.LineChart(document.querySelector('#co2_line_chart_div'));
+        chart.draw(lineChart, options);
+        })
+      }      
       
       // fetch from methane API and draw chart
       let methaneChart = () => {
@@ -355,6 +377,30 @@
       }
       
       // fetch from N2O chart and draw chart
+      let n2oChart = () => {
+        let lineChart = new google.visualization.DataTable();
+        
+        lineChart.addColumn('string','date');
+        lineChart.addColumn('number','Average (PPM)');
+
+        fetch("https://global-warming.org/api/nitrous-oxide-api")
+        .then( (response) => {
+          return response.json()
+        })
+        .then( (json) => {
+          json.nitrous.forEach( (elem) => {
+            lineChart.addRow([elem.date, parseInt(elem.average)])  });
+        
+        // Set chart options
+        let options = {'title':"Line chart showing the Nitrous Oxide levels in the Earth's atmosphere in Parts Per Million (PPM) for each month from 2001 to present",
+        'width':1500,
+        'height':500};
+
+        // Instantiate and draw our chart, passing in some options.
+        let chart = new google.visualization.LineChart(document.querySelector('#n2o_line_chart_div'));
+        chart.draw(lineChart, options);
+        })
+      }
 
       // Callback that creates and populates a data table,
       // instantiates the chart, passes in the data and
@@ -363,8 +409,8 @@
    
         // draw the charts
         methaneChart();
-//         co2Chart();
-//         n2oChart();
+        co2Chart();
+        n2oChart();
       }
 
       // Set a callback to run when the Google Visualization API is loaded.
@@ -382,20 +428,20 @@
         <div id="Charts">
           
           <!-- CO2 -->
+          <h5 class="mdc-typography--headline4">Carbon Dioxide</h5>
           
-
           <!--Div to hold line chart of CO2-->
           <div id="co2_line_chart_div"></div>
 
 
           <!-- Methane -->
-       
+          <h5 class="mdc-typography--headline4">Methane</h5>
           
-
           <!--Div to hold line chart of methane-->
           <div id="methane_line_chart_div"></div>    
 
           <!-- Nitrous Oxide -->
+          <h5 class="mdc-typography--headline4">Nitrous Oxide</h5>
 
           <!--Div to hold line chart of N2O-->
           <div id="n2o_line_chart_div"></div>
@@ -704,27 +750,40 @@
       }
     </script>
 
-
     <!-- game screen -->
     <div id="GameScreen" class="screen">
-      <!-- <h5 class="mdc-typography--headline4">Screen 3</h5> -->
       <canvas id="gameCanvas"></canvas>
     </div>
 
-    <div id="Screen4" class="screen">
-      <h5 class="mdc-typography--headline4">Game Stats Screen</h5>
+    <!-- Game Stats Screen -->
+    <div id="GameStats" class="screen">
+      <center>
+        <h5 class="mdc-typography--headline4">Exploration Statistics</h5>
+
+        <!-- Button to store user data and invoke snackbar -->
+        <button class="mdc-button mdc-button--raised" id="ViewExpStats">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">Click to View Updated Exploration Stats</span>
+        </button>
+
+        <p class="mdc-typography--body1" id="StatsP1"></p>
+        <p class="mdc-typography--body1" id="StatsP2"></p>
+
+      </center>
+
     </div>
 
-    <div id="HistoryScreen" class="screen">
-      <h5 class="mdc-typography--headline4">History Screen</h5>
-    </div>
+    <!-- Script for Exploration Stats screen -->
+    <script>
+
+    </script>
+
+
 </main> 
 
 
 	  <!-- script to support a SPA   -->
     <script>
-      // control the game play and pause state as screens are changed
-      // let pauseGame = false;
 
       // define the drawer
       const drawer = mdc.drawer.MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
@@ -826,6 +885,10 @@
     
     document.querySelector("#GoToStartGame").addEventListener("click", (event) => {
       setScreen("#GameScreen");
+    });
+
+    document.querySelector("#GoToExpStat").addEventListener("click", (event) => {
+      setScreen("#GameStats");
     });
 
     </script>
