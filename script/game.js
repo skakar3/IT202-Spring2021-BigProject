@@ -46,9 +46,9 @@ let context = canvas.getContext("2d");
 let drawGameData = () => {
   context.font = "bold 20px Helvetica, Arial, sans-serif";
   context.fillStyle = "white";
-  context.fillText(" |  Score : " + player.score, 40, 40);
-  context.fillText(" |  Lives : " + player.life, 40, 70);
-  context.fillText(" |  Level : " + gameObj.level, 40, 100);
+  context.fillText(" |  Score : " + player.score, 40, 120);
+  context.fillText(" |  Lives : " + player.life, 40, 150);
+  context.fillText(" |  Level : " + gameObj.level, 40, 180);
 }
 
 // add background image for start screen
@@ -608,7 +608,7 @@ let drawChooseShipWindow = () => {
             
             // update the player's highest score
             db.players.put({userName: userName, highestScore: player.score, date: new Date()});
-            console.log("new high score")
+            console.log("new high score");
           }
         });
 
