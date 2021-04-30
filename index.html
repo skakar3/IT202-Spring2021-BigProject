@@ -168,6 +168,7 @@
         </label> 
         <br> <br>
         
+        
         <!-- Button to store user data and invoke snackbar -->
         <button class="mdc-button mdc-button--raised" id="JoinButton">
           <div class="mdc-button__ripple"></div>
@@ -446,12 +447,16 @@
 
         <h5 class="mdc-typography--headline4">The Search for a new home</h5>
         
+        <p class="mdc-typography--body1">Since the industrial revolution, we humans exploited the resources of planet Earth in countless ways. Human activities lead to the release of poisonous gases like Carbon Dioxide, Methane, and Nitrous Oxide into the atmosphere. These gases will soon render this planet uninhabitable. Hence, we have initiated the search for a new planet to call home. This page discusses these gases in detail.</p>
+
         <!-- div to store all the charts -->
         <div id="Charts">
           
           <!-- CO2 -->
           <h5 class="mdc-typography--headline4">Carbon Dioxide</h5>
           
+          <p class="mdc-typography--body1">For thousands of years, the natural concentration of CO2 in earth atmosphere was around 280 ppm. From the beginning of the industrial revolution, human activities like the burning of fossil fuels, deforestation, and livestock have increased this amount by more than 30%.</p>
+
           <!--Div to hold line chart of CO2-->
           <div id="co2_line_chart_div"></div>
 
@@ -459,11 +464,17 @@
           <!-- Methane -->
           <h5 class="mdc-typography--headline4">Methane</h5>
           
+          <p class="mdc-typography--body1">Methane is a flammable gas formed by geological and biological processes. Some of the natural ones are leaks from natural gas systems and wetlands. 50-65% of total global methane emissions come from human activities. These include livestock, agriculture, oil and gas systems, waste from homes and businesses, landfills, and so on.</p>
+          
+          <p class="mdc-typography--body1">Methane is a gas with a global warming potential several times stronger than of CO2. For more than 650,000 years, methane concentration in the atmosphere was between 350 – 800 ppb. From the beginning of the industrial revolution, human activities have increased this amount by around 150%.</p>
+
           <!--Div to hold line chart of methane-->
           <div id="methane_line_chart_div"></div>    
 
           <!-- Nitrous Oxide -->
           <h5 class="mdc-typography--headline4">Nitrous Oxide</h5>
+
+          <p class="mdc-typography--body1">Nitrous oxide is a gas that is produced by the combustion of fossil fuel and solid waste, nitrogen-base fertilizers, sewage treatment plants, natural processes, and other agricultural and industrial activities. It is the third largest heat-trapping gas in the atmosphere and the biggest ozone-destroying compound emitted by human activities.</p>
 
           <!--Div to hold line chart of N2O-->
           <div id="n2o_line_chart_div"></div>
@@ -945,7 +956,24 @@
     
     <!-- Script for Service Worker -->
     <script>
-        
+      // // Register the Service Worker
+      // if ("serviceWorker" in navigator) {
+      //   window.addEventListener("load", () => {
+      //     navigator.serviceWorker.register("./sw.js", { scope: "." }).then(
+      //       (registration) => {
+      //         // registration successful
+      //         console.log(
+      //           "ServiceWorker registration successful with scope: ",
+      //           registration.scope
+      //         );
+      //       },
+      //       (err) => {
+      //         // registration failed
+      //         console.log("ServiceWorker registration failed: ", err);
+      //       }
+      //     );
+      //   });
+      // }
     </script>
 
   </body>
