@@ -293,23 +293,39 @@
       document.querySelector("#JoinButton").addEventListener("click", (event) => {
         // get user input from input element
         let userInput = textInput.value;
-
-          
-          
+        
         // store the user's name
         userName = userInput;
   
-      
-        // add the userName to the database of players
-        db.players.put({userName: userInput, highestScore: 0, date: new Date()})
-        .then ( (item) => {
+        db.players
+          .where('userName')
+          .equals(userInput)
+          .count()
+          .then( (count) => {
+            console.log("User found : " + count);
+            
+            // check if username does not exist
+            // add the new player into db
+            if (count == 0) {
 
-          // update and open the snackbar
-          snackbar.labelText = "Welcome Explorer " + userInput;
-          snackbar.open();
+              // add the userName to the database of players
+              db.players.put({userName: userInput, highestScore: 0, date: new Date()})
+              .then ( (item) => {
+
+                // update and open the snackbar
+                snackbar.labelText = "Welcome Explorer " + userInput;
+                snackbar.open();
+
+              });
+
+            }
 
         });
-
+        
+        // update and open the snackbar
+        snackbar.labelText = "Welcome Explorer " + userInput;
+        snackbar.open();
+      
       });
       
       // buttons in the main screen to change screens
@@ -430,7 +446,7 @@
       <center>
 
         <h5 class="mdc-typography--headline4">The Search for a new home</h5>
-   
+        
         <!-- div to store all the charts -->
         <div id="Charts">
           
@@ -443,7 +459,7 @@
 
           <!-- Methane -->
           <h5 class="mdc-typography--headline4">Methane</h5>
-
+       
           <!--Div to hold line chart of methane-->
           <div id="methane_line_chart_div"></div>    
 
@@ -783,7 +799,25 @@
     <script>
 
       // when the user clicks View Exploration Stats button
+      document.querySelector("#ViewExpStats").addEventListener("click", (event) => {
 
+        // display the recent score
+        let p1 = document.querySelector("#StatsP1");
+        if (player.score == 0) {
+          p1.innerText = "Go to the Start Game page and play a game to set your recent score" 
+        } else {
+          p1.innerText = "Exploration Score (Recent): " + player.score;
+        }
+
+        // display the highest score
+        let p2 = document.querySelector("#StatsP2");
+        p2.innerText = "Enter your UserName in the Home page to see your Higest Score"
+
+        db.players.get(userName)
+        .then( (item) => {
+          p2.innerText = "Exploration Score (Highest) : " + item.highestScore;
+        });
+      });
     </script>
 
 
