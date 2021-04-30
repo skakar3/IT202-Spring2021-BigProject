@@ -4,7 +4,7 @@
   <title>IT202-Spring2021-BigProject</title>
 
   <!-- manifest -->
-  <!-- <link rel="manifest" href="manifest.json" /> -->
+  <link rel="manifest" href="manifest.json" />
 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -326,6 +326,16 @@
         snackbar.labelText = "Welcome Explorer " + userInput;
         snackbar.open();
       
+        // // add the userName to the database of players
+        // db.players.put({userName: userInput, highestScore: 0, date: new Date()})
+        // .then ( (item) => {
+
+        //   // update and open the snackbar
+        //   snackbar.labelText = "Welcome Explorer " + userInput;
+        //   snackbar.open();
+
+        // });
+
       });
       
       // buttons in the main screen to change screens
@@ -956,24 +966,24 @@
     
     <!-- Script for Service Worker -->
     <script>
-      // // Register the Service Worker
-      // if ("serviceWorker" in navigator) {
-      //   window.addEventListener("load", () => {
-      //     navigator.serviceWorker.register("./sw.js", { scope: "." }).then(
-      //       (registration) => {
-      //         // registration successful
-      //         console.log(
-      //           "ServiceWorker registration successful with scope: ",
-      //           registration.scope
-      //         );
-      //       },
-      //       (err) => {
-      //         // registration failed
-      //         console.log("ServiceWorker registration failed: ", err);
-      //       }
-      //     );
-      //   });
-      // }
+      // Register the Service Worker
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("./sw.js", { scope: "." }).then(
+            (registration) => {
+              // registration successful
+              console.log(
+                "ServiceWorker registration successful with scope: ",
+                registration.scope
+              );
+            },
+            (err) => {
+              // registration failed
+              console.log("ServiceWorker registration failed: ", err);
+            }
+          );
+        });
+      }
     </script>
 
   </body>
