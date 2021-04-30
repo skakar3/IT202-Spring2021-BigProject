@@ -89,7 +89,7 @@
         <a class="mdc-list-item" href="#NASAImgScreen" tabindex="-1" aria-selected="false">
           <span class="mdc-list-item__ripple"></span>
           <i class="material-icons mdc-list-item__graphic" aria-hidden="true">image</i>
-          <span class="mdc-list-item__text">Image of the Day</span>
+          <span class="mdc-list-item__text">Daily Dose of Space</span>
         </a>
 
         <!-- Suit Up Screen -->
@@ -112,13 +112,6 @@
           <i class="material-icons mdc-list-item__graphic" aria-hidden="true">insert_chart_outlined</i>
           <span class="mdc-list-item__text">Game Stats</span>
         </a>
-
-        <!-- History Screen -->
-        <!-- <a class="mdc-list-item" href="#HistoryScreen" tabindex="-1" aria-selected="false">
-          <span class="mdc-list-item__ripple"></span>
-          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">history</i>
-          <span class="mdc-list-item__text">History</span>
-        </a> -->
 
       </nav>
     </div>
@@ -144,7 +137,6 @@
           <span class="mdc-line-ripple"></span>
         </label> 
         <br> <br>
-        
         
         <!-- Button to store user data and invoke snackbar -->
         <button class="mdc-button mdc-button--raised" id="JoinButton">
@@ -177,7 +169,8 @@
 
         <p class="mdc-typography--body1">The Application will allow you to join us in our quest to explore the known universe in search of a habitable planet. We hope that this planet will serve as our new home. This application tells you why we are in search of a new home and also how you can help us find it.</p>
 
-        <p class="mdc-typography--body1">Use the Navigation Drawer to navigate through the pages.</p>  
+        <p class="mdc-typography--body1">Use the Navigation Drawer to navigate through the pages.</p>
+        <br><br>
       
         <!-- the search for a habitable planet -->
         <h5 class="mdc-typography--headline5">The search for a habitable planet</h5>
@@ -191,6 +184,8 @@
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">Learn More</span>
         </button>
+        <br><br> 
+          
 
         <!-- learn more about space -->
         <h5 class="mdc-typography--headline5">Learn more about space</h5>
@@ -204,7 +199,8 @@
         <button class="mdc-button mdc-button--raised" id="GoToSpaceInfo">
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">Daily Dose Of Space</span>
-        </button>        
+        </button>
+        <br><br>
 
         <!-- Suit Up Screen -->
         <h5 class="mdc-typography--headline5">Suit Up</h5>
@@ -217,6 +213,7 @@
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">Suit Up</span>
         </button>
+        <br><br>
 
         <!-- Start Game screen -->
         <h5 class="mdc-typography--headline5">Start Exploring</h5>
@@ -228,6 +225,7 @@
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">Explore</span>
         </button>
+        <br><br>
 
         <!-- Exploration Statistics Screen -->
         <h5 class="mdc-typography--headline5">Exploration Statistics</h5>
@@ -302,16 +300,6 @@
         // update and open the snackbar
         snackbar.labelText = "Welcome Explorer " + userInput;
         snackbar.open();
-      
-        // // add the userName to the database of players
-        // db.players.put({userName: userInput, highestScore: 0, date: new Date()})
-        // .then ( (item) => {
-
-        //   // update and open the snackbar
-        //   snackbar.labelText = "Welcome Explorer " + userInput;
-        //   snackbar.open();
-
-        // });
 
       });
       
@@ -432,7 +420,7 @@
     <div id="LearnMoreScreen" class="screen">
       <center>
 
-        <h5 class="mdc-typography--headline4">The Search for a new home</h5>
+        <h5 class="mdc-typography--headline4">The search for a new home</h5>
         
         <p class="mdc-typography--body1">Since the industrial revolution, we humans exploited the resources of planet Earth in countless ways. Human activities lead to the release of poisonous gases like Carbon Dioxide, Methane, and Nitrous Oxide into the atmosphere. These gases will soon render this planet uninhabitable. Hence, we have initiated the search for a new planet to call home. This page discusses these gases in detail.</p>
 
@@ -632,7 +620,6 @@
         vidPlayer.srcObject = stream;
       });
 
-
       // capture button listener
       captureButton.addEventListener('click', () => {
         // Draw the video frame to the canvas.
@@ -640,8 +627,6 @@
         // get the image facial data
         getImageData("FACE_DETECTION");
       });
-    
-      
 
       // display the nose-and-glasses images in the DOM
       images.forEach( (item, idx) => {
@@ -671,9 +656,6 @@
         });
       });
 
-
-        
-        
       let getImageData = (type) => {
           
           // structure the request body based on Cloud Vision API docs
@@ -693,7 +675,6 @@
             ]
           };
 
-
           fetch(visionApiEndpoint + "?key=AIzaSyD0mL4Gws5Wa5RoXJAc-EfPxvcoAM_27Ns", {
             method: "POST",
             headers: {
@@ -711,8 +692,6 @@
               */
               
               let left_eye = data.responses[0].faceAnnotations[0].landmarks.filter((el) => {return el.type == "LEFT_EYE"})[0];
-
-              // let right_eye = response.responses[0].faceAnnotations[0].landmarks.filter(function(el) {return el.type == "RIGHT_EYE_PUPIL"})[0];
               let right_eye = data.responses[0].faceAnnotations[0].landmarks.filter((el) => {return el.type == "RIGHT_EYE"})[0];
               
               /*  compare the distance between the eyes in the response data 
@@ -721,21 +700,10 @@
 
               // distance for the active image
               let imageEyeDistance = activeImage["eye_distance"];
-
-
               let rightX = right_eye.position.x;
               let leftX = left_eye.position.x;
-
               let eye_distance = parseInt(rightX) - parseInt(leftX);
-              
-              
               let scale_pct = eye_distance/imageEyeDistance;   
-
-              /*  after getting that part working, I needed to offset
-                  the destination x,y due to drawImage dest x,y as the 
-                  top left corner of the image we're drawing;
-                  I had to look at the nose/glasses image;  I found the center of the right-eye lens is 150 x and 100 y from the top left of the image
-              */
 
               let destOffsetX = -1*activeImage["offset_horizontal"];
               let destOffsetY = -1*activeImage["offset_vertical"];
@@ -744,13 +712,9 @@
               /* after some more playing around, I realized that "right eye"
                   in the data doesn't mean *my* right eye; I actually need to offset from the "left (most) eye (in the image)"
               */
-
               let leftY = left_eye.position.y;
-
               let destX = leftX + (destOffsetX*scale_pct);
               let destY = leftY + (destOffsetY*scale_pct);
-              
-
 
               /* and finally, to avoid problems in getting the data url of a 
                   canvas that has been modified, I'm putting the "funny nose"
@@ -763,9 +727,7 @@
                 activeImageObject.width*scale_pct,    // the scaled width
                 activeImageObject.height*scale_pct    // the scaled height
               );
-
             });
-    
       }
     </script>
 
@@ -821,7 +783,7 @@
 </main> 
 
 
-	  <!-- script to support a SPA   -->
+	<!-- script to support a SPA   -->
     <script>
 
       // define the drawer
