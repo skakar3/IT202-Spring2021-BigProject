@@ -2,6 +2,10 @@
 <html>
 <head>
   <title>IT202-Spring2021-BigProject</title>
+
+  <!-- manifest -->
+  <!-- <link rel="manifest" href="manifest.json" /> -->
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -289,14 +293,12 @@
       document.querySelector("#JoinButton").addEventListener("click", (event) => {
         // get user input from input element
         let userInput = textInput.value;
-        
+
+          
+          
         // store the user's name
         userName = userInput;
- 
-        
-        // update and open the snackbar
-        snackbar.labelText = "Welcome Explorer " + userInput;
-        snackbar.open();
+  
       
         // add the userName to the database of players
         db.players.put({userName: userInput, highestScore: 0, date: new Date()})
@@ -428,23 +430,20 @@
       <center>
 
         <h5 class="mdc-typography--headline4">The Search for a new home</h5>
-        
-        <p class="mdc-typography--body1">Since the industrial revolution, we humans exploited the resources of planet Earth in countless ways. Human activities lead to the release of poisonous gases like Carbon Dioxide, Methane, and Nitrous Oxide into the atmosphere. These gases will soon render this planet uninhabitable. Hence, we have initiated the search for a new planet to call home. This page discusses these gases in detail.</p>
-
+   
         <!-- div to store all the charts -->
         <div id="Charts">
           
           <!-- CO2 -->
           <h5 class="mdc-typography--headline4">Carbon Dioxide</h5>
           
-
           <!--Div to hold line chart of CO2-->
           <div id="co2_line_chart_div"></div>
 
 
           <!-- Methane -->
           <h5 class="mdc-typography--headline4">Methane</h5>
-          
+
           <!--Div to hold line chart of methane-->
           <div id="methane_line_chart_div"></div>    
 
@@ -703,7 +702,6 @@
               // let right_eye = response.responses[0].faceAnnotations[0].landmarks.filter(function(el) {return el.type == "RIGHT_EYE_PUPIL"})[0];
               let right_eye = data.responses[0].faceAnnotations[0].landmarks.filter((el) => {return el.type == "RIGHT_EYE"})[0];
               
-              
               /*  compare the distance between the eyes in the response data 
                     to the distance between the lens centers to get a scaling pct 
               */
@@ -785,21 +783,6 @@
     <script>
 
       // when the user clicks View Exploration Stats button
-      document.querySelector("#ViewExpStats").addEventListener("click", (event) => {
-
-        // display the recent score
-        let p1 = document.querySelector("#StatsP1");
-        if (player.score == 0) {
-          p1.innerText = "Go to the Start Game page and play a game to set your recent score" 
-        } else {
-          p1.innerText = "Exploration Score (Recent): " + player.score;
-        }
-
-        // display the highest score
-        let p2 = document.querySelector("#StatsP2");
-        p2.innerText = "Enter your UserName in the Home page to see your Higest Score"
-
-      });
 
     </script>
 
@@ -926,6 +909,10 @@
     
     <!-- script for the game -->
     <script src="script/game.js"></script>
+    
+    <!-- Script for Service Worker -->
+    <script>
+    </script>
 
   </body>
 </html>
